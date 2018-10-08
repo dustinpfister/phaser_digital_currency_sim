@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+   <head>
+     <title>breakout</title>
+   </head>
+   <body>
+   
+     <div id="gamearea" style="width:100%;max-height:640px;"></div>
+
+     <script src="/js/phaser/2.11.0/phaser.min.js"></script>
+
+     <!-- helpers -->
+     <script src="/js/breakout/helpers/text_group.js"></script>
+     <script src="/js/breakout/helpers/sheet_from_canvas.js"></script>
+
+     <!-- game modules -->
+     <script src="/js/breakout/modules/blocks.js"></script>
+     <script src="/js/breakout/modules/ball.js"></script>
+     <script src="/js/breakout/modules/paddle.js"></script>
+     <script src="/js/breakout/modules/game_modes.js"></script>
+     <script src="/js/breakout/modules/features.js"></script>
+     <script src="/js/breakout/modules/upgrades.js"></script>
+
+     <!-- phaser game instance, states, and boot -->
+     <script src="/js/breakout/game.js"></script>
+     <script src="/js/breakout/states/boot.js"></script>
+     <script src="/js/breakout/states/mksheets.js"></script>
+     <script src="/js/breakout/states/title.js"></script>
+     <script src="/js/breakout/states/game.js"></script>
+     <script src="/js/breakout/main.js"></script>
+   
+   </body>
+</html>
