@@ -45,9 +45,24 @@ DigiCur.prototype.tick = function (count) {
 };
 
 // draw to the given phaser graphics object
-DigiCur.drawToGfx = function (gfx) {
+DigiCur.prototype.drawToGfx = function (gfx) {
 
     gfx.clear();
+    gfx.lineStyle(3, 0x00ff00);
+
+    var points = [],
+    digi = this;
+
+    this.history.forEach(function (tick, i) {
+
+        var x = 50 + i * 25,
+        y = 200 - (tick.rate / digi.maxRate) * 100;
+
+        points.push(x, y);
+
+    })
+
+    gfx.drawPolygon(points);
 
 };
 
@@ -55,10 +70,10 @@ DigiCur.drawToGfx = function (gfx) {
 var createGraph = function (game) {
 
     // add a graphics object to the world
-    var gfx = game.data.gfx = game.add.graphics(game.world.centerX, game.world.centerY);
+    var gfx = game.data.gfx = game.add.graphics(0, 0);
 
     gfx.lineStyle(3, 0x00ff00);
-    gfx.drawPolygon([0, -100, 100, 0, 0, 100, -50, 100, -50, 50, -100, 50, -100, -50, -50, -50, -50, -100, 0, -100]);
+    //gfx.drawPolygon([0, -100, 100, 0, 0, 100, -50, 100, -50, 50, -100, 50, -100, -50, -50, -50, -50, -100, 0, -100]);
 
 };
 
@@ -77,6 +92,8 @@ game.state.add('demo', {
             });
 
         createGraph(game);
+
+        game.data.dc.drawToGfx(game.data.gfx);
 
         console.log(game.data.dc.history);
 
