@@ -7,6 +7,30 @@ var Portfolio = function () {
 
 };
 
+Portfolio.prototype.purgeOldBuyPoints = function () {
+
+    var coins = this.coins,
+    coinName;
+
+    for (coinName in coins) {
+
+        var buyPoints = coins[coinName].buyPoints;
+
+        var i = buyPoints.length;
+        while (i--) {
+
+            if (buyPoints[i].amount === 0) {
+
+                buyPoints.splice(i, 1);
+
+            }
+
+        }
+
+    }
+
+};
+
 // check the given digital currency
 // and if it is low, buy
 Portfolio.prototype.buyCheck = function (digiCur) {
@@ -54,6 +78,8 @@ Portfolio.prototype.buyCheck = function (digiCur) {
             }
 
         });
+
+        this.purgeOldBuyPoints();
 
     }
 
