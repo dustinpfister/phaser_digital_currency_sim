@@ -8,6 +8,6 @@ app.use('/', express.static('./public'));
 
 app.listen(app.get('port'), () => {
 
-    console.log('phaser_breakout is being hosted on port ' + app.get('port'));
+    console.log('phaser_digital_currency_sim is being hosted on port ' + app.get('port'));
 
 });
