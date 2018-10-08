@@ -11,27 +11,36 @@ var DigiCur = function (opt) {
     this.tickNum = 0;
     this.history = [];
 
+    this.tick(this.maxHistory);
+
 };
 
 // tick the currency
-DigiCur.prototype.tick = function () {
+DigiCur.prototype.tick = function (count) {
 
-    // history length
-    var len = this.history.length;
+    var len;
 
-    // push ne history object
-    this.history.push({
-        tickNum: this.tickNum,
-        rate: this.baseRate + Math.random() * (this.maxRate - this.baseRate)
-    });
+    count = count || 1;
+    while (count--) {
+
+        // push ne history object
+        this.history.push({
+            tickNum: this.tickNum,
+            rate: this.baseRate + Math.random() * (this.maxRate - this.baseRate)
+        });
+
+        // history length
+        len = this.history.length;
+
+        // step tick number
+        this.tickNum += 1;
+
+    }
 
     // purge old history
     if (len > this.maxHistory) {
         this.history = this.history.splice(len - this.maxHistory, this.maxHistory);
     }
-
-    // step tick number
-    this.tickNum += 1;
 
 };
 
@@ -40,7 +49,7 @@ DigiCur.drawToGfx = function (gfx) {
 
     gfx.clear();
 
-}
+};
 
 // Create Graph
 var createGraph = function (game) {
@@ -68,6 +77,8 @@ game.state.add('demo', {
             });
 
         createGraph(game);
+
+        console.log(game.data.dc.history);
 
     },
 
