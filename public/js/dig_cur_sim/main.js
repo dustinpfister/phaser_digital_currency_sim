@@ -51,7 +51,7 @@ game.state.add('demo', {
 
         port.buyCheck(dc);
 
-        game.data.disp.text = 'Dollars: ' + port.dollars
+        game.data.disp.text = 'Dollars: ' + port.dollars.toFixed(2)
 
     }
 

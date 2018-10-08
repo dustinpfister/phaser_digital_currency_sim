@@ -2,7 +2,7 @@ var Portfolio = function () {
 
     this.dollars = 10;
     this.buyRateDollars = 10;
-    this.maxBuyPoints = 1;
+    this.maxBuyPoints = 10;
     this.coins = {};
 
 };
