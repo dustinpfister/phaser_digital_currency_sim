@@ -10,6 +10,7 @@ var DigiCur = function (opt) {
     this.maxHistory = opt.maxHistory || 10;
     this.tickNum = 0;
     this.history = [];
+    this.rate = this.baseRate;
 
     this.tick(this.maxHistory);
 
@@ -23,10 +24,12 @@ DigiCur.prototype.tick = function (count) {
     count = count || 1;
     while (count--) {
 
+        this.rate = this.baseRate + Math.random() * (this.maxRate - this.baseRate);
+
         // push ne history object
         this.history.push({
             tickNum: this.tickNum,
-            rate: this.baseRate + Math.random() * (this.maxRate - this.baseRate)
+            rate: this.rate
         });
 
         // history length
