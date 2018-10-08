@@ -55,8 +55,8 @@ DigiCur.prototype.drawToGfx = function (gfx) {
 
     this.history.forEach(function (tick, i) {
 
-        var x = 50 + i * 25,
-        y = 200 - (tick.rate / digi.maxRate) * 100;
+        var x = 10 + i * (120 / digi.maxHistory),
+        y = 120 - (tick.rate / digi.maxRate) * 120;
 
         points.push(x, y);
 
@@ -88,7 +88,8 @@ game.state.add('demo', {
         game.data.dc = new DigiCur({
                 name: 'dogeCoin',
                 baseRate: 0.0005,
-                maxRate: 0.092
+                maxRate: 0.092,
+                maxHistory: 60
             });
 
         createGraph(game);
@@ -99,7 +100,12 @@ game.state.add('demo', {
 
     },
 
-    update: function () {}
+    update: function () {
+
+        game.data.dc.tick();
+        game.data.dc.drawToGfx(game.data.gfx);
+
+    }
 
 });
 
