@@ -59,7 +59,7 @@ DigiCur.prototype.drawToGfx = function (gfx) {
     this.history.forEach(function (tick, i) {
 
         var x = 10 + i * (120 / digi.maxHistory),
-        y = 120 - (tick.rate / digi.maxRate) * 120;
+        y = 120 - (tick.rate / digi.maxRate) * 50;
 
         points.push(x, y);
 

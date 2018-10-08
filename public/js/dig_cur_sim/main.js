@@ -4,7 +4,7 @@
 var createGraph = function (game) {
 
     // add a graphics object to the world
-    var gfx = game.data.gfx = game.add.graphics(0, 0);
+    var gfx = game.data.gfx = game.add.graphics(10, 30);
 
     gfx.lineStyle(3, 0x00ff00);
     //gfx.drawPolygon([0, -100, 100, 0, 0, 100, -50, 100, -50, 50, -100, 50, -100, -50, -50, -50, -50, -100, 0, -100]);
@@ -20,14 +20,7 @@ game.state.add('demo', {
         game.data = game.data || {
 
             dollars: 0,
-            portfolio: {
-                dogeCoin: [{
-                        count: 10000,
-                        rate: 0.001
-                    }
-                ]
-
-            }
+            portfolio: new Portfolio()
         };
 
         game.data.dc = new DigiCur({
@@ -41,14 +34,24 @@ game.state.add('demo', {
 
         game.data.dc.drawToGfx(game.data.gfx);
 
+        game.data.disp = game.add.text(10, 10, 'foo', {
+                fill: 'white',
+                font: '15px courier'
+            });
+
     },
 
     update: function () {
 
-        var dc = game.data.dc;
+        var dc = game.data.dc,
+        port = game.data.portfolio;
 
         dc.tick();
         dc.drawToGfx(game.data.gfx);
+
+        port.buyCheck(dc);
+
+        game.data.disp.text = 'Dollars: ' + port.dollars
 
     }
 

@@ -9,7 +9,7 @@ var Portfolio = function () {
 
 // check the given digital currency
 // and if it is low, buy
-Portfolio.buyCheck = function (digiCur) {
+Portfolio.prototype.buyCheck = function (digiCur) {
 
     // if no buy points array create one
     if (!this.coins[digiCur.name]) {
@@ -19,7 +19,8 @@ Portfolio.buyCheck = function (digiCur) {
     }
 
     var per = digiCur.rate / (digiCur.maxRate - digiCur.baseRate),
-    coin = this.coins[digiCur.name];
+    coin = this.coins[digiCur.name],
+    port = this;
 
     // if low
     if (per <= 0.33) {
@@ -29,12 +30,30 @@ Portfolio.buyCheck = function (digiCur) {
 
             coin.buyPoints.push({
 
-                amount: this.buyRateDollars * digiCur.rate,
+                amount: this.buyRateDollars / digiCur.rate,
                 rate: digiCur.rate
 
             });
 
+            this.dollars -= this.buyRateDollars;
+
         }
+
+    }
+
+    // if high
+    if (per <= 0.66) {
+
+        coin.buyPoints.forEach(function (buyPoint) {
+
+            if (digiCur.rate > buyPoint.rate) {
+
+                port.dollars += buyPoint.amount * digiCur.rate;
+                buyPoint.amount = 0;
+
+            }
+
+        });
 
     }
 
