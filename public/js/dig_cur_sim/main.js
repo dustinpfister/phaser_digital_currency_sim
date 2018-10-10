@@ -7,7 +7,20 @@ var createGraph = function (game) {
     var gfx = game.data.gfx = game.add.graphics(10, 30);
 
     gfx.lineStyle(3, 0x00ff00);
-    //gfx.drawPolygon([0, -100, 100, 0, 0, 100, -50, 100, -50, 50, -100, 50, -100, -50, -50, -50, -50, -100, 0, -100]);
+
+};
+
+var tick = function (game) {
+
+    var dc = game.data.dc,
+    port = game.data.portfolio;
+
+    dc.tick();
+    dc.drawToGfx(game.data.gfx);
+
+    port.buyCheck(dc);
+
+    game.data.disp.text = 'Dollars: ' + port.dollars.toFixed(2)
 
 };
 
@@ -27,31 +40,24 @@ game.state.add('demo', {
                 name: 'dogeCoin',
                 baseRate: 0.0005,
                 maxRate: 0.092,
-                maxHistory: 60
+                maxHistory: 15
             });
 
         createGraph(game);
 
         game.data.dc.drawToGfx(game.data.gfx);
 
-        game.data.disp = game.add.text(10, 10, 'foo', {
+        game.data.disp = game.add.text(10, 10, '', {
                 fill: 'white',
                 font: '15px courier'
             });
 
-    },
+        game.time.events.loop(1000, function () {
 
-    update: function () {
+            console.log('tick');
 
-        var dc = game.data.dc,
-        port = game.data.portfolio;
-
-        dc.tick();
-        dc.drawToGfx(game.data.gfx);
-
-        port.buyCheck(dc);
-
-        game.data.disp.text = 'Dollars: ' + port.dollars.toFixed(2)
+            tick(game);
+        });
 
     }
 
