@@ -51,7 +51,6 @@ DigiCur.prototype.tick = function (count) {
 DigiCur.prototype.drawToGfx = function (gfx, port) {
 
     gfx.clear();
-    gfx.lineStyle(3, 0x00ff00);
 
     var points = [],
     digi = this;
@@ -61,6 +60,12 @@ DigiCur.prototype.drawToGfx = function (gfx, port) {
         var x = 10 + i * (240 / digi.maxHistory),
         y = 120 - (tick.rate / digi.maxRate) * 50;
 
+        //gfx.fillStyle(0xff0000);
+        gfx.beginFill(0xff0000, 1)
+        gfx.drawRect(0, 0, 240, 120);
+        gfx.endFill();
+
+        gfx.lineStyle(3, 0x00ff00);
         // if we have a portfolio
         if (port) {
 
