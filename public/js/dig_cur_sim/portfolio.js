@@ -55,7 +55,8 @@ Portfolio.prototype.buyCheck = function (digiCur) {
             coin.buyPoints.push({
 
                 amount: this.buyRateDollars / digiCur.rate,
-                rate: digiCur.rate
+                rate: digiCur.rate,
+                tickNum: digiCur.tickNum
 
             });
 

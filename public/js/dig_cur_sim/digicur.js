@@ -48,7 +48,7 @@ DigiCur.prototype.tick = function (count) {
 };
 
 // draw to the given phaser graphics object
-DigiCur.prototype.drawToGfx = function (gfx) {
+DigiCur.prototype.drawToGfx = function (gfx, port) {
 
     gfx.clear();
     gfx.lineStyle(3, 0x00ff00);
@@ -58,8 +58,25 @@ DigiCur.prototype.drawToGfx = function (gfx) {
 
     this.history.forEach(function (tick, i) {
 
-        var x = 10 + i * (120 / digi.maxHistory),
+        var x = 10 + i * (240 / digi.maxHistory),
         y = 120 - (tick.rate / digi.maxRate) * 50;
+
+        // if we have a portfolio
+        if (port) {
+
+            for (var coinName in port.coins) {
+
+                port.coins[coinName].buyPoints.forEach(function (bp) {
+
+                    if (bp.tickNum === tick.tickNum) {
+
+                        gfx.drawCircle(x, y, 10);
+
+                    }
+
+                });
+            }
+        }
 
         points.push(x, y);
 

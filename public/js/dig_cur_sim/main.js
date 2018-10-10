@@ -16,11 +16,12 @@ var tick = function (game) {
     port = game.data.portfolio;
 
     dc.tick();
-    dc.drawToGfx(game.data.gfx);
+
+    dc.drawToGfx(game.data.gfx, port);
 
     port.buyCheck(dc);
 
-    game.data.disp.text = 'Dollars: ' + port.dollars.toFixed(2)
+    game.data.disp.text = 'Dollars: ' + port.dollars.toFixed(2) + ', ' + port.coins.dogeCoin.buyPoints.length;
 
 };
 
